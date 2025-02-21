@@ -24,11 +24,12 @@ public class Category {
     private List<Item> items = new ArrayList<>();
 
 
-    // 셀프로 양방향 관계 걸기
-    @ManyToOne
+
+    // 부모 카테고리 설정 (현재 카테고리의 상위 카테고리)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
-
+    // 자식 카테고리 리스트 (현재 카테고리를 부모로 가지는 하위 카테고리들)
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 }
