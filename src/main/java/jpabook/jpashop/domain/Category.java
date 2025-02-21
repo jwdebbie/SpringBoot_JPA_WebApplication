@@ -18,6 +18,10 @@ public class Category {
     private String name;
 
     @ManyToMany
-    private List<item> items = new ArrayList<>();
+    @JoinTable(name = "category_item", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
+
+    private List<Item> items = new ArrayList<>();
+
+
 
 }
