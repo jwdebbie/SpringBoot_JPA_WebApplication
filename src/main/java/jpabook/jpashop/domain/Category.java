@@ -32,4 +32,12 @@ public class Category {
     // 자식 카테고리 리스트 (현재 카테고리를 부모로 가지는 하위 카테고리들)
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
+
+
+    //==연관관계 메서드==//
+    public void addChildCategory(Category child) {
+        this.child.add(child);
+        child.setParent(this);
+    }
 }
+
