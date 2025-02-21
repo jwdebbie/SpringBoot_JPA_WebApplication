@@ -25,7 +25,7 @@ public class Order {
     private Member member;  // Member.java에서 mapped by member의 그 멤버
 
 
-    @OneToMany(mappedBy = "order_id")
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne

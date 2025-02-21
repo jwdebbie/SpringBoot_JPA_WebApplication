@@ -18,10 +18,17 @@ public class Category {
     private String name;
 
     @ManyToMany
-    @JoinTable(name = "category_item", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
+    @JoinTable(name = "category_item", joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id"))
 
     private List<Item> items = new ArrayList<>();
 
 
+    // 셀프로 양방향 관계 걸기
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Category parent;
 
+    @OneToMany(mappedBy = "parent")
+    private List<Category> child = new ArrayList<>();
 }
