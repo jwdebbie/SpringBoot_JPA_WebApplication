@@ -4,16 +4,19 @@ import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.management.MemoryManagerMXBean;
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class MemberService {
 
     @Autowired
     private MemberRepository memberRepository;
 
+    @Transactional
     // 회원 가입
     public Long join(Member member) {
         validateDuplicateMember(member); // 중복 회원 검토
@@ -21,6 +24,7 @@ public class MemberService {
         return member.getId();
     }
 
+    // 중복 검사
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByName(member.getName());
         if (!findMembers.isEmpty()) {
@@ -28,12 +32,12 @@ public class MemberService {
         }
     }
 
-    // 회원 전체 조회
+    // 전체 회원 조회
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
-    // id로 한 건만 조회
+    // 특정 회원 조회 (id로 한 건만 조회)
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
     }
