@@ -13,10 +13,13 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class MemberService {
 
-    @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-    @Transactional
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
+    @Transactional  // 변경
     // 회원 가입
     public Long join(Member member) {
         validateDuplicateMember(member); // 중복 회원 검토
