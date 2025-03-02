@@ -5,6 +5,7 @@ import jpabook.jpashop.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.management.MemoryManagerMXBean;
 import java.util.List;
 
 @Service
@@ -28,4 +29,12 @@ public class MemberService {
     }
 
     // 회원 전체 조회
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
+    }
+
+    // id로 한 건만 조회
+    public Member findOne(Long memberId) {
+        return memberRepository.findOne(memberId);
+    }
 }
