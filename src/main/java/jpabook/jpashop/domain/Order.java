@@ -53,6 +53,7 @@ public class Order {
     }
 
     //== 생성 메서드 ==//
+    // 주문 생성에 대한 비즈니스 로직 응축해놓은 것 (추후 수정할 때 여기만 건들면 됨)
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
         order.setMember(member);
@@ -95,6 +96,4 @@ public class Order {
         }
         return totalPrice;
     }
-
-
 }
