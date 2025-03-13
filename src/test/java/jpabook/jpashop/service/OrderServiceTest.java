@@ -67,12 +67,20 @@ public class OrderServiceTest {
     @Test
     public void 주문취소() throws Exception {
         // given
+        Member member = createMember();
+        Book item = createBook("시골 JPA", 10000, 10);
 
+        int orderCount = 2;
+        Long orderId = orderService.order(member.getId(), item.getId(), orderCount);
 
         // when
-
+        orderService.cancelOrder(orderId);
 
         // then
+        Order getOrder = orderRepository.findOne(orderId);
+
+        Assert.assertEquals("주문 취소 시 상태는 CANCEL이다", OrderStatus.CANCEL, getOrder.getStatus());
+        Assert.assertEquals("주문이 취소된 상품은 그만큼 재고가 증가해야 한다", 10, item.getStockQuantity());
     }
 
     private Book createBook(String name, int price, int stockQuantity) {
