@@ -24,11 +24,15 @@ public class OrderItem {
     private Order order;
 
     private int orderPrice; //주문가격
-
     private int count; //주문수량
 
-    // 비즈니스 로직
+
+    //== 비즈니스 로직 ==//
     public void cancel() {
-        getItem().addStock(count);
+        getItem().addStock(count); // 재고를 다시 주문수량만큼 들려주기
+    }
+
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
     }
 }

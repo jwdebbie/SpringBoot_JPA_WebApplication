@@ -52,7 +52,7 @@ public class Order {
         delivery.setOrder(this);
     }
 
-    // 생성 메서드
+    //== 생성 메서드 ==//
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
         order.setMember(member);
@@ -61,23 +61,39 @@ public class Order {
             order.addOrderItem(orderItem);
         }
 
-        order.setStatus(OrderStatus.ORDER);
-        order.setOrderDate(LocalDateTime.now());
+        order.setStatus(OrderStatus.ORDER);       // OrderStatus를 처음 상태로 강제
+        order.setOrderDate(LocalDateTime.now());   // 현재 시간으로 설정
         return order;
     }
 
-    // 비즈니스 로직
+    //== 비즈니스 로직 ==//
 
-    // 주문 취소
+    /**
+     * 주문 취소
+     */
+
     public void cancel() {
+        // 배송이 이미 완료되어버리면 취소불가
         if (delivery.getStatus() == DeliveryStatus.COMP) {
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
-
+        // 위 validation 통과하면 CANCEL로 Status 바꿔줌
         this.setStatus(OrderStatus.CANCEL);
         for (OrderItem orderItem : orderItems) {
-            orderItem.cancel();
+            orderItem.cancel();  // 모든 오더아이템에 다 캔슬 넣어주는 것
         }
+    }
+
+    //==조회 로직==//
+    /**
+     * 전체 주문 가격 조회
+     */
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
     }
 
 
