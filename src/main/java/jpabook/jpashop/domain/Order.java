@@ -2,9 +2,7 @@ package jpabook.jpashop.domain;
 
 
 import jakarta.persistence.*;
-import lombok.Cleanup;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.aspectj.weaver.ast.Or;
 
 import java.time.LocalDateTime;
@@ -14,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 
 public class Order {
 
