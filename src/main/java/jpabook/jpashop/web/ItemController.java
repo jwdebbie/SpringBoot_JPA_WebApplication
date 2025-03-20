@@ -72,7 +72,9 @@ public class ItemController {
     }
 
 
-
+    /**
+     * 상품 수정
+     */
     @PostMapping("/items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") BookForm form) {
 
