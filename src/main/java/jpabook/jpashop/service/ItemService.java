@@ -25,7 +25,7 @@ public class ItemService {
         item.setPrice(price);
         item.setStockQuantity(stockQuantity);
     }
-    
+
     @Transactional
     public void saveItem(Item item) {
         itemRepository.save(item);
